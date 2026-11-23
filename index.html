@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Drama Hub">
+<title>Angela's Free Drama Hub</title>
+<style>
+:root{--bg:#0d0d0f;--card:#17171b;--card2:#1f1f25;--line:#2a2a31;--text:#f2f2f4;--dim:#9a9aa6;--red:#e2343b;--red2:#ff5a5f;--green:#3ecf8e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:0 auto;padding:12px 12px 40px}
+h1{margin:0;font-size:1.45rem}
+.sub{color:var(--dim);font-size:.92rem;margin-top:2px}
+.sec{margin:28px 0 10px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.grid{display:grid;gap:10px}
+.grid2{grid-template-columns:1fr 1fr}
+.grid-auto{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+input,button{font:inherit;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--text);padding:10px 12px}
+input:focus,button:focus{outline:none;border-color:var(--red)}
+button{cursor:pointer}
+button:disabled{opacity:.4;pointer-events:none}
+.primary{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+.primary:hover{background:var(--red2)}
+.tile{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;transition:border-color .15s}
+.tile img.poster{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:10px;margin-bottom:8px;display:block}
+.tile .poster-wrap{position:relative}
+.tile .badge{position:absolute;top:8px;right:8px}
+.tile .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+.tile .name{font-weight:650}
+.pill{font-size:.7rem;padding:2px 7px;border-radius:999px;font-weight:600}
+.pill.g{background:rgba(62,207,142,.15);color:var(--green)}
+.pill.r{background:rgba(226,52,59,.18);color:var(--red2)}
+.desc{color:var(--dim);font-size:.88rem}
+.row-show{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row-show:last-child{border:0}
+.name-ell{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep{color:var(--dim);font-size:.85rem;min-width:70px}
+.btn-sm{padding:4px 8px;font-size:.85rem;min-width:32px}
+.skip{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--dim);font-size:.92rem}
+.hint{color:var(--dim);font-size:.85rem;margin-top:8px}
+.logo{width:36px;height:36px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:10px}
+header{display:flex;align-items:center;margin-bottom:18px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+  <div>
+    <h1>Angela's Free Drama Hub</h1>
+    <div class="sub">Short dramas & movies. No coins. No locked episodes. · For Malcolm & Angela</div>
+  </div>
+</header>
+
+<div class="sec">Quick pick series</div>
+<div class="grid grid-auto">
+  <a class="tile" href="https://www.youtube.com/results?search_query=Mommy+Wolfless+Daddy+Is+Really+the+King+full+episodes" target="_blank" rel="noopener">
+    <div class="poster-wrap">
+      <img class="poster" src="imagine_images/Di6cw.jpg" alt="Mommy, Wolfless Daddy">
+      <span class="pill r badge">YT</span>
+    </div>
+    <div class="name">Mommy, Wolfless Daddy Is Really the King</div>
+    <div class="desc">Wolf King single dad + Frost Valley. Search full episodes.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=werewolf+short+drama+full+episodes+official" target="_blank" rel="noopener">
+    <div class="poster-wrap">
+      <img class="poster" src="imagine_images/fKag8.jpg" alt="Werewolf dramas">
+      <span class="pill r badge">YT</span>
+    </div>
+    <div class="name">Werewolf dramas</div>
+    <div class="desc">Hidden alpha / wolfless mate stories. Official full episodes.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=CEO+romance+short+drama+full+episodes+official" target="_blank" rel="noopener">
+    <div class="poster-wrap">
+      <img class="poster" src="imagine_images/iqRlN.jpg" alt="CEO romance">
+      <span class="pill r badge">YT</span>
+    </div>
+    <div class="name">CEO romance</div>
+    <div class="desc">Billionaire / secret identity short dramas.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=revenge+short+drama+full+episodes+official" target="_blank" rel="noopener">
+    <div class="poster-wrap">
+      <img class="poster" src="imagine_images/UmIiC.jpg" alt="Revenge stories">
+      <span class="pill r badge">YT</span>
+    </div>
+    <div class="name">Revenge stories</div>
+    <div class="desc">Comeback / rebirth / wronged heroine dramas.</div>
+  </a>
+</div>
+
+<div class="sec">You might like</div>
+<div class="grid grid-auto">
+  <a class="tile" href="https://www.youtube.com/results?search_query=Just+One+Kiss+ReelShort+full" target="_blank" rel="noopener">
+    <div class="name">Just One Kiss</div>
+    <div class="desc">Trending ReelShort romance. Search full episodes on YouTube.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=Married+the+Mafia+Don+full+episodes" target="_blank" rel="noopener">
+    <div class="name">Married the Mafia Don</div>
+    <div class="desc">Revenge + mafia romance. Official full episodes search.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=The+Alpha%27s+Possession+DramaBox" target="_blank" rel="noopener">
+    <div class="name">The Alpha's Possession</div>
+    <div class="desc">Werewolf possession story. Search full episodes.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=Rejected+Luna+Is+the+Alpha+Queen" target="_blank" rel="noopener">
+    <div class="name">Rejected Luna Is the Alpha Queen</div>
+    <div class="desc">Classic rejected mate werewolf arc.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=Before+We+Break+ReelShort" target="_blank" rel="noopener">
+    <div class="name">Before We Break</div>
+    <div class="desc">Trending female-led series. Search full episodes.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=PineDrama+Screen+Time" target="_blank" rel="noopener">
+    <div class="name">PineDrama Screen Time</div>
+    <div class="desc">TikTok’s free flagship series.</div>
+  </a>
+</div>
+
+<div class="sec">Search</div>
+<div class="card">
+  <input id="q" placeholder="Search a show title…" autocomplete="off">
+  <div class="grid grid2" style="margin-top:10px">
+    <button class="primary" id="b1" disabled>YouTube full episodes</button>
+    <button id="b2" disabled>ReelShort official</button>
+    <button id="b3" disabled>Search Tubi</button>
+    <button id="b4" disabled>YouTube official full movie</button>
+  </div>
+  <div class="hint">Prefer uploads from the studio’s official channel when possible.</div>
+</div>
+
+<div class="sec">My shows</div>
+<div class="card">
+  <div style="display:flex;gap:8px;margin-bottom:10px">
+    <input id="n" placeholder="Show name" style="flex:1">
+    <input id="e" type="number" value="1" min="0" style="width:70px">
+    <button id="add">Add</button>
+  </div>
+  <div id="list"></div>
+  <div id="empty" class="hint">Add shows you're watching and keep track of your episode.</div>
+</div>
+
+<div class="sec">Free drama apps (no coins)</div>
+<div class="grid grid-auto">
+  <a class="tile" href="https://apps.apple.com/search?term=PineDrama" target="_blank" rel="noopener">
+    <div class="row"><span class="name">PineDrama</span><span class="pill g">100% FREE</span></div>
+    <div class="desc">TikTok’s official short drama app. No paywall on iOS. Full series with ads.</div>
+  </a>
+  <a class="tile" href="https://apps.apple.com/app/dramareels-dramas-and-series/id6738081517" target="_blank" rel="noopener">
+    <div class="row"><span class="name">DramaReels</span><span class="pill g">iOS FREE</span></div>
+    <div class="desc">iOS version from FreeReels creators. Ad-supported, finish series without coins.</div>
+  </a>
+  <a class="tile" href="https://play.google.com/store/search?q=FreeReels&c=apps" target="_blank" rel="noopener">
+    <div class="row"><span class="name">FreeReels</span><span class="pill g">ANDROID</span></div>
+    <div class="desc">Large free catalog with ads. Official Android app.</div>
+  </a>
+</div>
+
+<div class="sec">Official studio channels</div>
+<div class="grid grid-auto">
+  <a class="tile" href="https://www.youtube.com/@reelshortapp" target="_blank" rel="noopener">
+    <div class="row"><span class="name">ReelShort</span><span class="pill r">YT</span></div>
+    <div class="desc">Official channel – full episodes & compilations</div>
+  </a>
+  <a class="tile" href="https://www.tiktok.com/@reelshortapp" target="_blank" rel="noopener">
+    <div class="row"><span class="name">ReelShort TikTok</span><span class="pill r">TT</span></div>
+    <div class="desc">Official clips & promos</div>
+  </a>
+  <a class="tile" href="https://www.facebook.com/reelshortapp" target="_blank" rel="noopener">
+    <div class="row"><span class="name">ReelShort Facebook</span><span class="pill r">FB</span></div>
+    <div class="desc">Official page</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=DramaBox+official+full+movie" target="_blank" rel="noopener">
+    <div class="row"><span class="name">DramaBox</span><span class="pill r">YT</span></div>
+    <div class="desc">Search official full movies</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=ShortMax+official+full+movie" target="_blank" rel="noopener">
+    <div class="row"><span class="name">ShortMax</span><span class="pill r">YT</span></div>
+    <div class="desc">Search official full movies</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=GoodShort+official+full+movie" target="_blank" rel="noopener">
+    <div class="row"><span class="name">GoodShort</span><span class="pill r">YT</span></div>
+    <div class="desc">Search official full movies</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=NetShort+official+full+movie" target="_blank" rel="noopener">
+    <div class="row"><span class="name">NetShort</span><span class="pill r">YT</span></div>
+    <div class="desc">Search official full movies</div>
+  </a>
+</div>
+
+<div class="sec">Free movies & TV</div>
+<div class="grid grid-auto">
+  <a class="tile" href="https://tubitv.com" target="_blank" rel="noopener">
+    <div class="row"><span class="name">Tubi</span><span class="pill g">FREE</span></div>
+    <div class="desc">Free with ads. Movies, TV, some short content.</div>
+  </a>
+  <a class="tile" href="https://pluto.tv" target="_blank" rel="noopener">
+    <div class="row"><span class="name">Pluto TV</span><span class="pill g">FREE</span></div>
+    <div class="desc">Live channels + on-demand free with ads.</div>
+  </a>
+  <a class="tile" href="https://therokuchannel.roku.com" target="_blank" rel="noopener">
+    <div class="row"><span class="name">The Roku Channel</span><span class="pill g">FREE</span></div>
+    <div class="desc">Free movies & TV with ads.</div>
+  </a>
+  <a class="tile" href="https://www.youtube.com/results?search_query=official+full+movie+free" target="_blank" rel="noopener">
+    <div class="row"><span class="name">YouTube Movies</span><span class="pill r">YT</span></div>
+    <div class="desc">Search official full movies (many free with ads).</div>
+  </a>
+</div>
+
+<div class="sec">Skip these</div>
+<div class="skip">
+  Avoid coin/paywall apps when possible: ReelShort (coins after free eps), DramaBox, ShortMax, GoodShort, NetShort for full series without payment. Prefer PineDrama / DramaReels / FreeReels + official YouTube uploads.
+</div>
+
+<script>
+const KEY = 'angela-drama-shows';
+const $ = id => document.getElementById(id);
+let shows = [];
+try { shows = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) {}
+
+function save(){ localStorage.setItem(KEY, JSON.stringify(shows)); }
+function render(){
+  const list = $('list');
+  list.innerHTML = '';
+  if(!shows.length){ $('empty').style.display='block'; return; }
+  $('empty').style.display='none';
+  shows.forEach((s,i)=>{
+    const row = document.createElement('div');
+    row.className = 'row-show';
+    row.innerHTML = `
+      <div class="name-ell">${esc(s.name)}</div>
+      <div class="ep">Ep ${s.ep}</div>
+      <button class="btn-sm" data-a="dec" data-i="${i}">−</button>
+      <button class="btn-sm" data-a="inc" data-i="${i}">+</button>
+      <button class="btn-sm" data-a="del" data-i="${i}">×</button>
+    `;
+    list.appendChild(row);
+  });
+}
+function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+
+$('add').onclick = ()=>{
+  const name = $('n').value.trim();
+  if(!name) return;
+  shows.push({name, ep: +$('e').value || 1});
+  $('n').value=''; $('e').value=1;
+  save(); render();
+};
+$('list').onclick = e=>{
+  const b = e.target.closest('[data-a]');
+  if(!b) return;
+  const i = +b.dataset.i, a = b.dataset.a;
+  if(a==='inc') shows[i].ep++;
+  if(a==='dec') shows[i].ep = Math.max(0, shows[i].ep-1);
+  if(a==='del') shows.splice(i,1);
+  save(); render();
+};
+
+const q = $('q');
+const btns = ['b1','b2','b3','b4'].map(id=>$(id));
+q.oninput = ()=>{
+  const has = q.value.trim().length>1;
+  btns.forEach(b=>b.disabled=!has);
+};
+$('b1').onclick = ()=> window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q.value+' full episodes official')}`,'_blank');
+$('b2').onclick = ()=> window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q.value+' ReelShort official')}`,'_blank');
+$('b3').onclick = ()=> window.open(`https://tubitv.com/search/${encodeURIComponent(q.value)}`,'_blank');
+$('b4').onclick = ()=> window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q.value+' official full movie')}`,'_blank');
+
+render();
+</script>
+</body>
+</html>
