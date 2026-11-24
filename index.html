@@ -287,7 +287,9 @@ function renderHome(){
   const c = state.continue && SHOWS.find(s=>s.id===state.continue.id);
   if(c){
     document.getElementById('continue-label').textContent = 'Still on the couch';
-    cont.innerHTML = '<div class="row-scroll">'+tile(c,{resume:true, blurb:'One tap and you are right back in it.'})+'</div>';
+    const stc = state.shows[c.id]||{};
+    const resumeBit = 'Resume' + (epCount(c)===1 ? '' : (' ep '+((stc.ep||0)+1))) + (stc.time? ' at '+fmt(stc.time) : '') + '. One tap and you are right back in it.';
+    cont.innerHTML = '<div class="row-scroll">'+tile(c,{resume:true, blurb:resumeBit})+'</div>';
   } else {
     document.getElementById('continue-label').textContent = 'Still on the couch';
     cont.innerHTML = '<div class="empty">Nothing in progress yet. The couch is all yours — pick a rom-com, a tearjerker, or a uniformed drama and get comfortable.</div>';
