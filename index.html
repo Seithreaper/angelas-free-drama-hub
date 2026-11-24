@@ -5,279 +5,466 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Drama Hub">
-<title>Angela's Free Drama Hub</title>
+<meta name="apple-mobile-web-app-title" content="Angela's Night In">
+<title>Angela's Night In</title>
 <style>
-:root{--bg:#0d0d0f;--card:#17171b;--card2:#1f1f25;--line:#2a2a31;--text:#f2f2f4;--dim:#9a9aa6;--red:#e2343b;--red2:#ff5a5f;--green:#3ecf8e}
+:root{
+  --bg:#0b1216;
+  --card:#171d24;
+  --card2:#1f2730;
+  --line:#2a333c;
+  --text:#f2f2f4;
+  --dim:#9aa4ae;
+  --red:#e2343b;
+  --red2:#ff5a5f;
+  --green:#3ecf8e;
+  --teal:#5ee0d0;
+  --pink:#ff8ac9;
+  --gold:#f0c36a;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:0 auto;padding:12px 12px 40px}
-h1{margin:0;font-size:1.45rem}
-.sub{color:var(--dim);font-size:.92rem;margin-top:2px}
-.sec{margin:28px 0 10px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
-.grid{display:grid;gap:10px}
-.grid2{grid-template-columns:1fr 1fr}
-.grid-auto{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-input,button{font:inherit;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--text);padding:10px 12px}
-input:focus,button:focus{outline:none;border-color:var(--red)}
-button{cursor:pointer}
-button:disabled{opacity:.4;pointer-events:none}
-.primary{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
-.primary:hover{background:var(--red2)}
-.tile{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;transition:border-color .15s}
-.tile img.poster{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:10px;margin-bottom:8px;display:block}
-.tile .poster-wrap{position:relative}
-.tile .badge{position:absolute;top:8px;right:8px}
-.tile .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
-.tile .name{font-weight:650}
-.pill{font-size:.7rem;padding:2px 7px;border-radius:999px;font-weight:600}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{max-width:980px;margin:0 auto;padding:0 14px 56px}
+button,input{font:inherit}
+a{color:var(--teal)}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+  margin:0 -14px 22px;
+  padding:22px 18px 26px;
+  background:
+    radial-gradient(1200px 280px at 10% -20%, rgba(94,224,208,.22), transparent 60%),
+    radial-gradient(900px 240px at 90% 0%, rgba(255,138,201,.16), transparent 55%),
+    linear-gradient(180deg, #102028 0%, #0b1216 100%);
+}
+.hero::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;height:70px;
+  background:linear-gradient(180deg, transparent, rgba(11,18,22,.9));
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;display:flex;gap:14px;align-items:flex-start}
+.logo{
+  width:44px;height:44px;flex:none;
+  background:linear-gradient(160deg,var(--red),#a31d32);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 18px rgba(226,52,59,.35);
+}
+h1{margin:0;font-size:1.55rem;letter-spacing:.01em}
+.hello{color:var(--teal);font-size:.95rem;margin:2px 0 6px;font-weight:600}
+.slogan{
+  margin:0;
+  font-style:italic;
+  font-size:1.15rem;
+  color:var(--pink);
+  text-shadow:0 0 18px rgba(255,138,201,.35);
+}
+.slogan span{color:var(--gold);font-style:normal;font-size:.78rem;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;text-shadow:none}
+.sub{color:var(--dim);font-size:.92rem;margin-top:8px}
+
+.sec{margin:26px 0 10px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.sec.fun{color:var(--pink);letter-spacing:.1em}
+
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.row-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.row-scroll .tile{flex:0 0 210px;scroll-snap-align:start}
+
+.tile{
+  display:block;text-decoration:none;color:inherit;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;cursor:pointer;text-align:left;padding:0;width:100%;
+  transition:border-color .15s, transform .15s, box-shadow .15s;
+}
+.tile:hover,.tile:focus-visible{
+  border-color:var(--pink);
+  transform:translateY(-2px);
+  box-shadow:0 0 16px rgba(255,138,201,.16);
+  outline:none;
+}
+.poster-wrap{position:relative;background:#10161b}
+.poster{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#10161b}
+.badge{position:absolute;top:8px;right:8px}
+.progress{
+  position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.45);
+}
+.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--pink));width:0}
+.check{
+  position:absolute;top:8px;left:8px;width:22px;height:22px;border-radius:50%;
+  background:rgba(62,207,142,.95);color:#062016;font-weight:800;font-size:.75rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.meta{padding:10px 11px 12px}
+.name{font-weight:650;font-size:.95rem}
+.desc{color:var(--dim);font-size:.8rem;margin-top:3px}
+.pill{font-size:.68rem;padding:2px 7px;border-radius:999px;font-weight:600;display:inline-block}
 .pill.g{background:rgba(62,207,142,.15);color:var(--green)}
 .pill.r{background:rgba(226,52,59,.18);color:var(--red2)}
-.desc{color:var(--dim);font-size:.88rem}
-.row-show{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
-.row-show:last-child{border:0}
-.name-ell{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ep{color:var(--dim);font-size:.85rem;min-width:70px}
-.btn-sm{padding:4px 8px;font-size:.85rem;min-width:32px}
-.skip{border:1px dashed var(--line);border-radius:14px;padding:14px;color:var(--dim);font-size:.92rem}
-.hint{color:var(--dim);font-size:.85rem;margin-top:8px}
-.tile .watch{margin-top:8px}
-.tile .watch a{color:var(--red2);text-decoration:none;font-size:.85rem;font-weight:600}
-.tile .watch a:hover{text-decoration:underline}
-.logo{width:36px;height:36px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-right:10px}
-header{display:flex;align-items:center;margin-bottom:18px}
+.pill.t{background:rgba(94,224,208,.15);color:var(--teal)}
+.pill.p{background:rgba(255,138,201,.16);color:var(--pink)}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.chip{
+  background:var(--card2);border:1px solid var(--line);color:var(--text);
+  border-radius:999px;padding:6px 12px;cursor:pointer;
+}
+.chip.on{border-color:var(--pink);color:var(--pink);box-shadow:0 0 10px rgba(255,138,201,.2)}
+
+.empty{
+  border:1px dashed var(--line);border-radius:14px;padding:16px 14px;
+  color:var(--dim);font-size:.92rem;background:rgba(255,255,255,.02);
+}
+
+/* Player theater */
+.theater{display:none;margin:0 0 22px}
+.theater.open{display:block}
+.back{
+  background:transparent;border:0;color:var(--teal);cursor:pointer;padding:0 0 10px;
+  font-weight:600;
+}
+.stage{
+  background:#000;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  aspect-ratio:16/9;
+}
+.stage iframe,.stage .fallback{
+  width:100%;height:100%;border:0;display:block;
+}
+.stage .fallback{
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:10px;padding:22px;background:var(--card);aspect-ratio:auto;min-height:220px;
+}
+.now{margin:12px 0 8px}
+.now h2{margin:0 0 4px;font-size:1.2rem}
+.eps{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ep{
+  background:var(--card2);border:1px solid var(--line);color:var(--text);
+  border-radius:10px;padding:6px 10px;cursor:pointer;min-width:44px;
+  position:relative;
+}
+.ep.on{border-color:var(--red);background:rgba(226,52,59,.16)}
+.ep.done::after{content:"✓";margin-left:5px;color:var(--green);font-weight:700}
+
+.footer{margin-top:36px;color:var(--dim);font-size:.85rem;border-top:1px solid var(--line);padding-top:16px}
+.footer p{margin:0 0 8px}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
-  <div>
-    <h1>Angela's Free Drama Hub</h1>
-    <div class="sub">Short dramas & movies. No coins. No locked episodes. · For Malcolm & Angela</div>
-  </div>
-</header>
-
-<div class="sec">Quick pick series</div>
-<div class="grid grid-auto">
-  <a class="tile" href="https://www.youtube.com/results?search_query=Mommy+Wolfless+Daddy+Is+Really+the+King+full+episodes" target="_blank" rel="noopener">
-    <div class="poster-wrap">
-      <img class="poster" src="imagine_images/Di6cw.jpg" alt="Mommy, Wolfless Daddy">
-      <span class="pill r badge">YT</span>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="logo" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
     </div>
-    <div class="name">Mommy, Wolfless Daddy Is Really the King</div>
-    <div class="desc">Wolf King single dad + Frost Valley. Search full episodes.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=werewolf+short+drama+full+episodes+official" target="_blank" rel="noopener">
-    <div class="poster-wrap">
-      <img class="poster" src="imagine_images/fKag8.jpg" alt="Werewolf dramas">
-      <span class="pill r badge">YT</span>
+    <div>
+      <div class="hello" id="hello">Welcome back, Angela</div>
+      <h1>Angela's Night In</h1>
+      <p class="slogan">“No one ever listens to me” <span>her line, our cue to press play</span></p>
+      <div class="sub">A cozy little theater of free rom-coms, dramas, and one-night watchathons. No coins. No account. Just the next episode, waiting for you.</div>
     </div>
-    <div class="name">Werewolf dramas</div>
-    <div class="desc">Hidden alpha / wolfless mate stories. Official full episodes.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=CEO+romance+short+drama+full+episodes+official" target="_blank" rel="noopener">
-    <div class="poster-wrap">
-      <img class="poster" src="imagine_images/iqRlN.jpg" alt="CEO romance">
-      <span class="pill r badge">YT</span>
-    </div>
-    <div class="name">CEO romance</div>
-    <div class="desc">Billionaire / secret identity short dramas.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=revenge+short+drama+full+episodes+official" target="_blank" rel="noopener">
-    <div class="poster-wrap">
-      <img class="poster" src="imagine_images/UmIiC.jpg" alt="Revenge stories">
-      <span class="pill r badge">YT</span>
-    </div>
-    <div class="name">Revenge stories</div>
-    <div class="desc">Comeback / rebirth / wronged heroine dramas.</div>
-  </a>
-</div>
-
-<div class="sec">You might like</div>
-<div class="grid grid-auto">
-  <div class="tile" id="betrayed-by-my-mech-back-with-twin-mechs">
-    <div class="row"><span class="name">Betrayed by My Mech, Back with Twin Mechs</span><span class="pill g">FREE</span></div>
-    <div class="desc">26 episodes · Complete · VibeShort · English · Subtitled. Sci-fi mech revenge. Free on DramenMikro — no coins, subscription, or app.</div>
-    <div class="watch"><a href="https://dramenmikro.com/en/series/betrayed-by-my-mech-back-with-twin-mechs" target="_blank" rel="noopener">Watch free</a> · <a href="https://dramenmikro.com/en/series/betrayed-by-my-mech-back-with-twin-mechs/episode-1" target="_blank" rel="noopener">Episode 1</a></div>
   </div>
-  <a class="tile" href="https://www.youtube.com/results?search_query=Just+One+Kiss+ReelShort+full" target="_blank" rel="noopener">
-    <div class="name">Just One Kiss</div>
-    <div class="desc">Trending ReelShort romance. Search full episodes on YouTube.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=Married+the+Mafia+Don+full+episodes" target="_blank" rel="noopener">
-    <div class="name">Married the Mafia Don</div>
-    <div class="desc">Revenge + mafia romance. Official full episodes search.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=The+Alpha%27s+Possession+DramaBox" target="_blank" rel="noopener">
-    <div class="name">The Alpha's Possession</div>
-    <div class="desc">Werewolf possession story. Search full episodes.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=Rejected+Luna+Is+the+Alpha+Queen" target="_blank" rel="noopener">
-    <div class="name">Rejected Luna Is the Alpha Queen</div>
-    <div class="desc">Classic rejected mate werewolf arc.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=Before+We+Break+ReelShort" target="_blank" rel="noopener">
-    <div class="name">Before We Break</div>
-    <div class="desc">Trending female-led series. Search full episodes.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=PineDrama+Screen+Time" target="_blank" rel="noopener">
-    <div class="name">PineDrama Screen Time</div>
-    <div class="desc">TikTok’s free flagship series.</div>
-  </a>
 </div>
 
-<div class="sec">Search</div>
-<div class="card">
-  <input id="q" placeholder="Search a show title…" autocomplete="off">
-  <div class="grid grid2" style="margin-top:10px">
-    <button class="primary" id="b1" disabled>YouTube full episodes</button>
-    <button id="b2" disabled>ReelShort official</button>
-    <button id="b3" disabled>Search Tubi</button>
-    <button id="b4" disabled>YouTube official full movie</button>
+<div id="home">
+  <div class="sec fun" id="continue-label">Still on the couch</div>
+  <div id="continue-row"></div>
+
+  <div class="sec">The library</div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="library"></div>
+
+  <div class="sec" id="history-label">Already watched</div>
+  <div id="history-row"></div>
+</div>
+
+<div class="theater" id="theater">
+  <button class="back" id="back" type="button">← Back to the library</button>
+  <div class="stage" id="stage"></div>
+  <div class="now">
+    <h2 id="now-title"></h2>
+    <div class="desc" id="now-meta"></div>
+    <div class="eps" id="eps"></div>
   </div>
-  <div class="hint">Prefer uploads from the studio’s official channel when possible.</div>
 </div>
 
-<div class="sec">My shows</div>
-<div class="card">
-  <div style="display:flex;gap:8px;margin-bottom:10px">
-    <input id="n" placeholder="Show name" style="flex:1">
-    <input id="e" type="number" value="1" min="0" style="width:70px">
-    <button id="add">Add</button>
-  </div>
-  <div id="list"></div>
-  <div id="empty" class="hint">Add shows you're watching and keep track of your episode.</div>
+<div class="footer">
+  <p>Your place is saved on this device and this browser only — no account, no cloud. A different phone or a cleared history starts fresh, like a new ticket stub.</p>
+  <p>Shows in the library play right here from ReelShort’s official YouTube channel. Want still more free micro dramas in a browser, with no coins, subscription, or app? There’s a fallback door to <a href="https://dramenmikro.com/en" target="_blank" rel="noopener">DramenMikro</a>.</p>
+  <p>Made with affection for Angela. The popcorn’s imaginary. The remote is yours.</p>
 </div>
 
-<div class="sec">Free drama apps (no coins)</div>
-<div class="grid grid-auto">
-  <a class="tile" href="https://apps.apple.com/search?term=PineDrama" target="_blank" rel="noopener">
-    <div class="row"><span class="name">PineDrama</span><span class="pill g">100% FREE</span></div>
-    <div class="desc">TikTok’s official short drama app. No paywall on iOS. Full series with ads.</div>
-  </a>
-  <a class="tile" href="https://apps.apple.com/app/dramareels-dramas-and-series/id6738081517" target="_blank" rel="noopener">
-    <div class="row"><span class="name">DramaReels</span><span class="pill g">iOS FREE</span></div>
-    <div class="desc">iOS version from FreeReels creators. Ad-supported, finish series without coins.</div>
-  </a>
-  <a class="tile" href="https://play.google.com/store/search?q=FreeReels&c=apps" target="_blank" rel="noopener">
-    <div class="row"><span class="name">FreeReels</span><span class="pill g">ANDROID</span></div>
-    <div class="desc">Large free catalog with ads. Official Android app.</div>
-  </a>
-</div>
-
-<div class="sec">Official studio channels</div>
-<div class="grid grid-auto">
-  <a class="tile" href="https://www.youtube.com/@reelshortapp" target="_blank" rel="noopener">
-    <div class="row"><span class="name">ReelShort</span><span class="pill r">YT</span></div>
-    <div class="desc">Official channel – full episodes & compilations</div>
-  </a>
-  <a class="tile" href="https://www.tiktok.com/@reelshortapp" target="_blank" rel="noopener">
-    <div class="row"><span class="name">ReelShort TikTok</span><span class="pill r">TT</span></div>
-    <div class="desc">Official clips & promos</div>
-  </a>
-  <a class="tile" href="https://www.facebook.com/reelshortapp" target="_blank" rel="noopener">
-    <div class="row"><span class="name">ReelShort Facebook</span><span class="pill r">FB</span></div>
-    <div class="desc">Official page</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=DramaBox+official+full+movie" target="_blank" rel="noopener">
-    <div class="row"><span class="name">DramaBox</span><span class="pill r">YT</span></div>
-    <div class="desc">Search official full movies</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=ShortMax+official+full+movie" target="_blank" rel="noopener">
-    <div class="row"><span class="name">ShortMax</span><span class="pill r">YT</span></div>
-    <div class="desc">Search official full movies</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=GoodShort+official+full+movie" target="_blank" rel="noopener">
-    <div class="row"><span class="name">GoodShort</span><span class="pill r">YT</span></div>
-    <div class="desc">Search official full movies</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=NetShort+official+full+movie" target="_blank" rel="noopener">
-    <div class="row"><span class="name">NetShort</span><span class="pill r">YT</span></div>
-    <div class="desc">Search official full movies</div>
-  </a>
-</div>
-
-<div class="sec">Free movies & TV</div>
-<div class="grid grid-auto">
-  <a class="tile" href="https://tubitv.com" target="_blank" rel="noopener">
-    <div class="row"><span class="name">Tubi</span><span class="pill g">FREE</span></div>
-    <div class="desc">Free with ads. Movies, TV, some short content.</div>
-  </a>
-  <a class="tile" href="https://pluto.tv" target="_blank" rel="noopener">
-    <div class="row"><span class="name">Pluto TV</span><span class="pill g">FREE</span></div>
-    <div class="desc">Live channels + on-demand free with ads.</div>
-  </a>
-  <a class="tile" href="https://therokuchannel.roku.com" target="_blank" rel="noopener">
-    <div class="row"><span class="name">The Roku Channel</span><span class="pill g">FREE</span></div>
-    <div class="desc">Free movies & TV with ads.</div>
-  </a>
-  <a class="tile" href="https://www.youtube.com/results?search_query=official+full+movie+free" target="_blank" rel="noopener">
-    <div class="row"><span class="name">YouTube Movies</span><span class="pill r">YT</span></div>
-    <div class="desc">Search official full movies (many free with ads).</div>
-  </a>
-</div>
-
-<div class="sec">Skip these</div>
-<div class="skip">
-  Avoid coin/paywall apps when possible: ReelShort (coins after free eps), DramaBox, ShortMax, GoodShort, NetShort for full series without payment. Prefer PineDrama / DramaReels / FreeReels + official YouTube uploads.
-</div>
-
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-const KEY = 'angela-drama-shows';
-const $ = id => document.getElementById(id);
-let shows = [];
-try { shows = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) {}
+const STORE = 'angelaNightIn.v1';
+const SHOWS = [
+  {id:'pride-and-prejudice', title:'Pride & Prejudice', studio:'ReelShort', genre:'Rom-com', youtube:['vCSTV-X-Ueo'], blurb:'A classic love story, told as a free full-length short drama.'},
+  {id:'insta-married', title:'Insta-Married', studio:'ReelShort', genre:'Rom-com', youtube:['AQLkM4h5Ee4'], blurb:'A whirlwind wedding, a camera-ready mess, and a soft landing.'},
+  {id:'billionaire-manny', title:'I Hired a Billionaire Manny', studio:'ReelShort', genre:'Rom-com', youtube:['VDc_dYuap2I'], blurb:'He applied as the nanny. The secret fortune is the punchline.'},
+  {id:'how-my-boss-became-my-hubby', title:'How My Boss Became My Hubby', studio:'ReelShort', genre:'Rom-com', youtube:['8op4zC1nehw'], blurb:'Office tension that actually clocked out somewhere sweet.'},
+  {id:'the-one-that-got-away', title:'The One That Got Away', studio:'ReelShort', genre:'Rom-com', youtube:['PNB4Gi7diO4'], blurb:'Second chances, just late enough to make you root for them.'},
+  {id:'love-me-two-times', title:'Love Me Two Times', studio:'ReelShort', genre:'Rom-com', youtube:['zwEgXDinxkg'], blurb:'A double-take romance for a stay-in movie night.'},
+  {id:'ceos-contract-wife', title:"The CEO's Contract Wife", studio:'ReelShort', genre:'Rom-com', youtube:['X-FnJOHWyqE'], blurb:'A paper marriage that refuses to stay on paper.'},
+  {id:'darling-please-come-home', title:'Darling, Please Come Home', studio:'ReelShort', genre:'Drama', youtube:['23vwnPIB2z8'], blurb:'A come-home story with plenty of feeling.'},
+  {id:'return-of-my-drama-queen', title:'The Return of My Drama Queen', studio:'ReelShort', genre:'Drama', youtube:['7GAK2KCayIw'], blurb:'Big feelings, bigger comeback, all in good fun.'},
+  {id:'rock-on-band-beauty', title:'Rock On! Band Beauty in Disguise', studio:'ReelShort', genre:'Rom-com', youtube:['F5lkMuGUb14'], blurb:'Hidden talent, loud songs, and a little sparkle.'},
+  {id:'fashion-icon', title:'From Invisible Designer to Fashion Icon', studio:'ReelShort', genre:'Drama', youtube:['dThNjFhhEyk'], blurb:'A quiet comeback that lets her talent do the talking.'},
+  {id:'reborn-wifes-redemption', title:"The Reborn Wife's Redemption", studio:'ReelShort', genre:'Drama', youtube:['v5txrJNuCUU'], blurb:'A second chance, and the courage to take it.'},
+  {id:'callsign-legacy', title:'Callsign: Legacy', studio:'ReelShort', genre:'Military drama', youtube:['BWIraRkll-Q'], blurb:'One impossible flight changes everything.'},
+  {id:'my-ex-is-in-the-navy-seals', title:'My Ex Is in the Navy SEALs', studio:'ReelShort', genre:'Military drama', youtube:['pqhUsubT8Kg'], blurb:'A reunion with service, pride, and unfinished business.'},
+  {id:'double-life-military-man', title:'Double Life of My Military Man', studio:'ReelShort', genre:'Military drama', youtube:['9n_rcjJuPs8'], blurb:'The uniform is only half the story.'},
+  {id:'came-back-as-a-ghost', title:'He Died in War and Came Back as a Ghost', studio:'ReelShort', genre:'Military drama', youtube:['D-rYUVJCaUA'], blurb:'A war-drama with a haunting second chapter.'},
+  {id:'her-secret-crusader', title:'Her Secret Crusader', studio:'ReelShort', genre:'Military drama', youtube:['Q92mGkcVRoc'], blurb:'A hidden protector, a public heart.'},
+  {id:'he-only-wanted-her-heart', title:'He Only Wanted Her Heart', studio:'ReelShort', genre:'Drama', youtube:['oy6NaCA4K6k'], blurb:'She expected a takeover. He wanted something kinder.'},
+  {id:'betrayed-by-my-mech-back-with-twin-mechs', title:'Betrayed by My Mech, Back with Twin Mechs', studio:'VibeShort', genre:'Sci-fi drama', episodes:26, source:'external', fallback:'https://dramenmikro.com/en/series/betrayed-by-my-mech-back-with-twin-mechs', blurb:'A complete 26-episode mech revenge story. It plays on DramenMikro — free, no coins, no app.'}
+];
 
-function save(){ localStorage.setItem(KEY, JSON.stringify(shows)); }
-function render(){
-  const list = $('list');
-  list.innerHTML = '';
-  if(!shows.length){ $('empty').style.display='block'; return; }
-  $('empty').style.display='none';
-  shows.forEach((s,i)=>{
-    const row = document.createElement('div');
-    row.className = 'row-show';
-    row.innerHTML = `
-      <div class="name-ell">${esc(s.name)}</div>
-      <div class="ep">Ep ${s.ep}</div>
-      <button class="btn-sm" data-a="dec" data-i="${i}">−</button>
-      <button class="btn-sm" data-a="inc" data-i="${i}">+</button>
-      <button class="btn-sm" data-a="del" data-i="${i}">×</button>
-    `;
-    list.appendChild(row);
-  });
+function epCount(s){ return s.youtube ? s.youtube.length : (s.episodes || 1); }
+function posterUrl(s){ return s.youtube ? 'https://i.ytimg.com/vi/'+s.youtube[0]+'/hqdefault.jpg' : ''; }
+
+let state = {shows:{}, continue:null};
+function loadState(){
+  try{ state = Object.assign({shows:{}, continue:null}, JSON.parse(localStorage.getItem(STORE)||'{}')); }catch(e){ state = {shows:{}, continue:null}; }
+  if(!state.shows) state.shows = {};
 }
-function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+function saveState(){ localStorage.setItem(STORE, JSON.stringify(state)); }
 
-$('add').onclick = ()=>{
-  const name = $('n').value.trim();
-  if(!name) return;
-  shows.push({name, ep: +$('e').value || 1});
-  $('n').value=''; $('e').value=1;
-  save(); render();
-};
-$('list').onclick = e=>{
-  const b = e.target.closest('[data-a]');
-  if(!b) return;
-  const i = +b.dataset.i, a = b.dataset.a;
-  if(a==='inc') shows[i].ep++;
-  if(a==='dec') shows[i].ep = Math.max(0, shows[i].ep-1);
-  if(a==='del') shows.splice(i,1);
-  save(); render();
-};
+function showProgress(id){
+  const st = state.shows[id]; if(!st) return 0;
+  const s = SHOWS.find(x=>x.id===id); if(!s) return 0;
+  const n = epCount(s);
+  const done = (st.finished||[]).length;
+  if(st.ep!=null && st.duration>0) return Math.min(1, (done + (st.time||0)/st.duration) / n);
+  return Math.min(1, done / n);
+}
+function isFinished(id){
+  const s = SHOWS.find(x=>x.id===id); if(!s) return false;
+  const st = state.shows[id]; if(!st) return false;
+  return (st.finished||[]).length >= epCount(s);
+}
 
-const q = $('q');
-const btns = ['b1','b2','b3','b4'].map(id=>$(id));
-q.oninput = ()=>{
-  const has = q.value.trim().length>1;
-  btns.forEach(b=>b.disabled=!has);
-};
-$('b1').onclick = ()=> window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q.value+' full episodes official')}`,'_blank');
-$('b2').onclick = ()=> window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q.value+' ReelShort official')}`,'_blank');
-$('b3').onclick = ()=> window.open(`https://tubitv.com/search/${encodeURIComponent(q.value)}`,'_blank');
-$('b4').onclick = ()=> window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(q.value+' official full movie')}`,'_blank');
+function greeting(){
+  const h = new Date().getHours();
+  let tod = 'Hello';
+  if(h < 5) tod = 'You are up late';
+  else if(h < 12) tod = 'Good morning';
+  else if(h < 17) tod = 'Good afternoon';
+  else if(h < 21) tod = 'Good evening';
+  else tod = 'Good night';
+  return 'Welcome back, Angela. ' + tod + '.';
+}
 
-render();
+function pill(s){
+  const g = s.genre||'';
+  const cls = /rom-com/i.test(g) ? 'p' : /military/i.test(g) ? 't' : /sci-fi/i.test(g) ? 'r' : 'g';
+  return '<span class="pill '+cls+'">'+esc(g)+'</span>';
+}
+
+function tile(s, opts){
+  opts = opts||{};
+  const prog = showProgress(s.id);
+  const done = isFinished(s.id);
+  const st = state.shows[s.id]||{};
+  const img = posterUrl(s);
+  const resume = opts.resume && st.ep!=null;
+  const label = resume ? ('Resume ep ' + ((st.ep||0)+1) + (st.time? ' · ' + fmt(st.time) : '')) : (s.studio + ' · ' + (epCount(s)===1 ? 'Full movie' : (epCount(s)+' episodes')));
+  return `<button class="tile" type="button" data-open="${s.id}" ${resume?`data-resume="1"`:''}>
+    <div class="poster-wrap">
+      ${img?`<img class="poster" src="${img}" alt="">`:`<div class="poster"></div>`}
+      ${done?'<div class="check" title="Watched">✓</div>':''}
+      <span class="badge">${pill(s)}</span>
+      ${prog>0?`<div class="progress"><i style="width:${Math.round(prog*100)}%"></i></div>`:''}
+    </div>
+    <div class="meta">
+      <div class="name">${esc(s.title)}</div>
+      <div class="desc">${esc(opts.blurb || label)}</div>
+    </div>
+  </button>`;
+}
+
+function renderHome(){
+  document.getElementById('hello').textContent = greeting();
+  const cont = document.getElementById('continue-row');
+  const c = state.continue && SHOWS.find(s=>s.id===state.continue.id);
+  if(c){
+    document.getElementById('continue-label').textContent = 'Still on the couch';
+    cont.innerHTML = '<div class="row-scroll">'+tile(c,{resume:true, blurb:'One tap and you are right back in it.'})+'</div>';
+  } else {
+    document.getElementById('continue-label').textContent = 'Still on the couch';
+    cont.innerHTML = '<div class="empty">Nothing in progress yet. The couch is all yours — pick a rom-com, a tearjerker, or a uniformed drama and get comfortable.</div>';
+  }
+
+  const genres = ['All', ...Array.from(new Set(SHOWS.map(s=>s.genre)))];
+  const active = renderHome.filter || 'All';
+  document.getElementById('filters').innerHTML = genres.map(g=>`<button class="chip ${g===active?'on':''}" type="button" data-genre="${esc(g)}">${esc(g)}</button>`).join('');
+  const list = SHOWS.filter(s=> active==='All' || s.genre===active);
+  document.getElementById('library').innerHTML = list.map(s=>tile(s)).join('');
+
+  const hist = SHOWS.filter(s=> state.shows[s.id] && ((state.shows[s.id].finished||[]).length || state.shows[s.id].time>0 || isFinished(s.id)));
+  const hr = document.getElementById('history-row');
+  if(!hist.length){
+    document.getElementById('history-label').textContent = 'Already watched';
+    hr.innerHTML = '<div class="empty">Your encore shelf is empty, which only means the first night is still ahead. We will keep track right here.</div>';
+  } else {
+    document.getElementById('history-label').textContent = 'Already watched';
+    hr.innerHTML = '<div class="row-scroll">'+hist.map(s=>tile(s)).join('')+'</div>';
+  }
+}
+
+document.getElementById('filters').addEventListener('click', e=>{
+  const b = e.target.closest('[data-genre]'); if(!b) return;
+  renderHome.filter = b.dataset.genre;
+  renderHome();
+});
+document.getElementById('home').addEventListener('click', e=>{
+  const b = e.target.closest('[data-open]'); if(!b) return;
+  openShow(b.dataset.open, {resume: b.dataset.resume==='1'});
+});
+document.getElementById('back').onclick = ()=>{ closeTheater(); location.hash=''; };
+
+let player=null, current=null, currentEp=0, tick=null;
+
+function openShow(id, opts){
+  opts = opts||{};
+  const s = SHOWS.find(x=>x.id===id); if(!s) return;
+  current = s;
+  const st = state.shows[id]||{};
+  currentEp = opts.ep!=null ? opts.ep : ((opts.resume!==false && st.ep!=null) ? st.ep : 0);
+  document.getElementById('home').style.display='none';
+  document.getElementById('theater').classList.add('open');
+  document.getElementById('now-title').textContent = s.title;
+  document.getElementById('now-meta').textContent = s.studio + ' · ' + s.genre + ' · ' + s.blurb;
+  renderEps();
+  playEp(currentEp, opts.resume!==false && (st.ep===currentEp));
+  location.hash = '#watch/'+s.id+(currentEp?('/'+(currentEp+1)):'');
+}
+function closeTheater(){
+  stopTick();
+  if(player && player.destroy){ try{player.destroy();}catch(e){} }
+  player=null;
+  document.getElementById('theater').classList.remove('open');
+  document.getElementById('home').style.display='block';
+  document.getElementById('stage').innerHTML='';
+  renderHome();
+}
+function renderEps(){
+  const s=current;
+  const n=epCount(s);
+  const fin=(state.shows[s.id]&&state.shows[s.id].finished)||[];
+  const html=[];
+  for(let i=0;i<n;i++){
+    const label = s.youtube && n===1 ? 'Full movie' : ('Ep '+(i+1));
+    html.push(`<button class="ep ${i===currentEp?'on':''} ${fin.indexOf(i)>=0?'done':''}" type="button" data-ep="${i}">${label}</button>`);
+  }
+  if(s.fallback){
+    html.push(`<a class="ep" href="${s.fallback}" target="_blank" rel="noopener">Open on DramenMikro</a>`);
+  }
+  document.getElementById('eps').innerHTML = html.join('');
+}
+document.getElementById('eps').addEventListener('click', e=>{
+  const b=e.target.closest('[data-ep]'); if(!b) return;
+  playEp(+b.dataset.ep, false);
+});
+
+function playEp(i, resume){
+  const s=current; if(!s) return;
+  currentEp=i;
+  const st=state.shows[s.id]||{};
+  const start = resume && st.ep===i ? Math.floor(st.time||0) : 0;
+  if(!state.shows[s.id]) state.shows[s.id]={finished:[], ep:i, time:start, duration:0};
+  state.shows[s.id].ep=i;
+  if(!resume) state.shows[s.id].time = 0;
+  state.continue = {id:s.id, ep:i, at:Date.now()};
+  saveState();
+  renderEps();
+  const stage=document.getElementById('stage');
+  stopTick();
+  if(player && player.destroy){ try{player.destroy();}catch(e){} player=null; }
+
+  if(s.youtube && s.youtube[i]){
+    stage.innerHTML='<div id="ytplayer"></div>';
+    const boot = ()=>{
+      player = new YT.Player('ytplayer', {
+        host: 'https://www.youtube.com',
+        videoId: s.youtube[i],
+        playerVars: {autoplay:1, rel:0, modestbranding:1, playsinline:1, origin: location.origin, start: start>3?start:undefined},
+        events: {
+          onReady: ev=>{
+            if(start>3 && ev.target.seekTo) ev.target.seekTo(start, true);
+            startTick();
+          },
+          onStateChange: ev=>{
+            if(ev.data===YT.PlayerState.PLAYING) startTick();
+            if(ev.data===YT.PlayerState.PAUSED || ev.data===YT.PlayerState.BUFFERING) savePos();
+            if(ev.data===YT.PlayerState.ENDED){ markFinished(); playNext(); }
+          }
+        }
+      });
+    };
+    if(window.YT && YT.Player) boot();
+    else window.onYouTubeIframeAPIReady = boot;
+  } else {
+    const url = s.fallback + (s.episodes ? '/episode-'+(i+1) : '');
+    stage.innerHTML = `<div class="fallback">
+      <div class="name">This one plays on DramenMikro</div>
+      <div class="desc">Their site does not allow in-page playback, so this is the free outbound door — no coins, subscription, or app. We will still remember which episode you opened.</div>
+      <a class="pill t" href="${url}" target="_blank" rel="noopener" id="ext-play">Watch episode ${i+1} ↗</a>
+    </div>`;
+  }
+  location.hash = '#watch/'+s.id+(i?('/'+(i+1)):'');
+}
+
+function startTick(){
+  stopTick();
+  tick=setInterval(savePos, 4000);
+}
+function stopTick(){ if(tick){ clearInterval(tick); tick=null; } }
+function savePos(){
+  if(!current || !player || !player.getCurrentTime) return;
+  try{
+    const t=player.getCurrentTime(); const d=player.getDuration();
+    if(!isFinite(t) || t<0) return;
+    const st=state.shows[current.id]||(state.shows[current.id]={finished:[],ep:currentEp,time:0,duration:0});
+    st.ep=currentEp; st.time=t; st.duration=d||st.duration||0; st.at=Date.now();
+    if(d && t/d>=0.9) markFinished(true);
+    state.continue={id:current.id, ep:currentEp, at:Date.now()};
+    saveState();
+  }catch(e){}
+}
+function markFinished(quiet){
+  if(!current) return;
+  const st=state.shows[current.id]||(state.shows[current.id]={finished:[],ep:0,time:0,duration:0});
+  if(st.finished.indexOf(currentEp)<0) st.finished.push(currentEp);
+  if(!quiet){ st.time=0; }
+  saveState();
+  renderEps();
+}
+function playNext(){
+  if(!current) return;
+  if(currentEp+1 < epCount(current)) playEp(currentEp+1, false);
+}
+
+function route(){
+  const m=(location.hash||'').match(/^#watch\/([^/]+)(?:\/(\d+))?/);
+  if(m){
+    const ep=m[2]? (+m[2]-1) : undefined;
+    openShow(m[1], {ep, resume: ep==null});
+  } else if(document.getElementById('theater').classList.contains('open')){
+    closeTheater();
+  }
+}
+
+function fmt(sec){
+  sec=Math.floor(sec||0);
+  const m=Math.floor(sec/60), s=sec%60;
+  return m+':' + String(s).padStart(2,'0');
+}
+function esc(t){ const d=document.createElement('div'); d.textContent=t==null?'':String(t); return d.innerHTML; }
+
+loadState();
+renderHome();
+window.addEventListener('hashchange', route);
+if(location.hash) route();
+window.addEventListener('beforeunload', savePos);
 </script>
 </body>
 </html>
